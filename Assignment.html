@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Task Adder</title>
+</head>
+<body>
+
+<form id="taskForm">
+    <input type="text" id="newTask" placeholder="Enter a new task">
+    <button type="submit" id="submitBtn">Add Task</button>
+</form>
+
+<ul id="taskList"></ul>
+
+<script>
+// Query for the submit button and input task field once in the beginning
+const submit = document.getElementById('submitBtn');
+const newTask = document.getElementById('newTask');
+
+// Disable the submit button by default
+submit.disabled = true;
+
+// Listen for input to be typed in the input field
+newTask.addEventListener('input', function() {
+    // Enable the submit button if there's text in the input field, otherwise disable
+    submit.disabled = !newTask.value.trim();
+});
+
+// Listen for form submission
+document.getElementById('taskForm').addEventListener('submit', function(event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Find the task the a user just submitted
+    const taskContent = newTask.value.trim();
+
+    if(taskContent) {
+        // Create a list item for the new task and add the task to it
+        const listItem = document.createElement('li');
+        listItem.textContent = taskContent;
+
+        // Add new element to the unordered list
+        document.getElementById('taskList').append(listItem);
+
+        
+        newTask.value = '';
+        submit.disabled = true;
+    }
+
+    return false; 
+});
+</script>
+
+</body>
+</html>
